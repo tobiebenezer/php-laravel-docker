@@ -16,4 +16,4 @@ echo "Running migrations..."
 php artisan migrate --force
 
 echo "restarting nginx serve"
-sudo service php8.2-fpm restart
+service php8.2-fpm restart
