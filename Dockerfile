@@ -1,4 +1,4 @@
-FROM richarvey/nginx-php-fpm:latest
+FROM richarvey/nginx-php-fpm:3.1.0
 
 RUN apk add --update nodejs npm
 
@@ -13,7 +13,7 @@ ENV REAL_IP_HEADER 1
 
 # Laravel config
 ENV APP_ENV production
-ENV APP_DEBUG false
+ENV APP_DEBUG true
 ENV LOG_CHANNEL stderr
 
 # Allow composer to run as root
