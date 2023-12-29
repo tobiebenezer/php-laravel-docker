@@ -99,7 +99,7 @@
                 <button class="btn " type="button" data-bs-toggle="modal" data-bs-target="#CreateAccount">
                     <span>
 
-                        {{ ucfirst(auth()->user()->email) }}
+                        {{ ucfirst(auth()->user()->name) }}
                     </span>
                 </button>
 
