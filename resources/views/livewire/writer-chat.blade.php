@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                        <input type="email" wire:model="authForm.email" class="form-control" id="exampleFormControlInput1" placeholder="password">
+                                        <input type="email" wire:model="authForm.email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
                                         @error('authForm.email')
                                         <div id="validationServer03Feedback" class="invalid-feedback">
                                             {{ $message }}
@@ -132,7 +132,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Password</label>
-                                        <input type="password" wire:model="authForm.password" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                        <input type="password" wire:model="authForm.password" class="form-control" id="exampleFormControlInput1" placeholder="password">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
