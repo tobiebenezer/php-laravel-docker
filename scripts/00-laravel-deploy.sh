@@ -15,5 +15,7 @@ php artisan route:cache
 echo "Running migrations..."
 php artisan migrate --force
 
+php artisan livewire:publish --assets
+
 echo "restarting nginx serve"
 service php8.2-fpm restart
