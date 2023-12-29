@@ -22,6 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tone',
+        'max_kw_density',
+        'min_kw_density',
+       
     ];
 
     /**
