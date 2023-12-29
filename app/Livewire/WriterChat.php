@@ -48,6 +48,11 @@ class WriterChat extends Component
 
     public function sentPrompt()
     {
+        if(!auth()->user()){
+            session()->flash('error', 'Please login');
+            return redirect('/');
+        }
+
         $openAiService = new OpenAiService();
         $difussionService = new DifussionService();
 
