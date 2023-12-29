@@ -7,15 +7,10 @@ echo "Installing npm dependency"
 npm install
 
 echo "Caching config..."
-php artisan config:cache
-
-echo "Caching routes..."
-php artisan route:cache
+php artisan optimize:clear
 
 echo "Running migrations..."
 php artisan migrate --force
-
-php artisan livewire:publish --assets
 
 echo "restarting nginx serve"
 service php8.2-fpm restart
