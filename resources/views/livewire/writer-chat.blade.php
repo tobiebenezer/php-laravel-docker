@@ -224,7 +224,22 @@
         </div>
         @endif
 
+        @forelse ($chats as $chat )
+        <div class="card">
+            <div class="card-header">
 
+                {{ $chat->prompt }}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ $chat->response }}</p>
+                <img src="" alt="">
+                <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap:3rem;">
+                    <img height="250px" width="250px" src="{{$chat->media_urls[0]}}" class="rounded " alt="...">
+                    <img height="250px" width="250px" src="{{$chat->media_urls[1]}}" class="rounded " alt="...">
+                </div>
+            </div>
+        </div>
+        @empty
         <div class="d-flex justify-content-center align-items-center" style="height:87vh; ">
             <p>
             <h3>
@@ -232,6 +247,8 @@
             </h3>
             </p>
         </div>
+        @endforelse
+
     </div>
     <div class="container py-2" style="height: 5vh;">
 

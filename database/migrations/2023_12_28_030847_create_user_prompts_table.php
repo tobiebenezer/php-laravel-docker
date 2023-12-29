@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('prompt');
             $table->text('response')->nullable();
-            $table->json('media_urls');
+            $table->json('media_urls')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

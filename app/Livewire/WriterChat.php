@@ -9,11 +9,14 @@ use App\Livewire\Forms\{
     PromptForm,
     ToneAdjustmentForm
 };
+use App\Models\UserPrompt;
+use App\Services\DifussionService;
+use App\Services\OpenAiService;
 use Illuminate\Support\Facades\Auth;
 
 class WriterChat extends Component
 {
-    
+
     public ToneAdjustmentForm $toneAdjustmentForm;
     public AuthForm $authForm;
     public PromptForm $promptForm;
@@ -25,7 +28,13 @@ class WriterChat extends Component
 
     public function render()
     {
-        return view('livewire.writer-chat');
+        $chats = UserPrompt::where('user_id',auth()->id())
+                            ->latest('id')
+                            ->paginate(30); 
+
+        return view('livewire.writer-chat',[
+            'chats' => $chats
+            ]);
     }
 
     public function mount()
@@ -39,8 +48,37 @@ class WriterChat extends Component
 
     public function sentPrompt()
     {
+        $openAiService = new OpenAiService();
+        $difussionService = new DifussionService();
 
-        dd($this->promptForm->prompt);
+        $text = $openAiService->generate(
+            $this->promptForm->prompt,
+            (float)$this->toneAdjustmentForm->tone,
+            (float)$this->toneAdjustmentForm->min_kw_density,
+            $this->toneAdjustmentForm->max_kw_density
+        );
+
+        if ($text == "") {
+            session()->flash('error', 'something went wrong please try again later');
+            return redirect('/');
+        }
+
+        // get prompt 
+        $media = $difussionService->generate(
+            $this->promptForm->prompt,
+            $this->toneAdjustmentForm->max_kw_density
+        );
+
+        
+
+        //save imageas and prompt
+
+        $message = $openAiService->saveResult(
+            $this->promptForm->prompt,
+            $text ?? "",
+            $media ?? [''],
+        );
+
     }
 
     public function updated($name, $value)
@@ -50,9 +88,9 @@ class WriterChat extends Component
             'toneAdjustmentForm.min_kw_density',
             'toneAdjustmentForm.max_kw_density'
         ])) {
-            
+
             auth()->user()->update([
-                explode('.',$name)[1] => $value
+                explode('.', $name)[1] => $value
             ]);
         }
     }
