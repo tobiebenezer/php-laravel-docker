@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class WriterChat extends Component
 {
-
+    
     public ToneAdjustmentForm $toneAdjustmentForm;
     public AuthForm $authForm;
     public PromptForm $promptForm;
