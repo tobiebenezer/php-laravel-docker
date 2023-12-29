@@ -2,7 +2,6 @@
 
 use App\Livewire\WriterChat;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +15,3 @@ use Livewire\Livewire;
 */
 
 Route::get('/', WriterChat::class);
-
-// Livewire::setScriptRoute(function ($handle) {
-//     $urlPath = parse_url($_SERVER['REQUEST_URI']??"/", PHP_URL_PATH);
-//     $segments = explode('/', trim($urlPath, '/'));
-//     // Use the null coalescing operator to simplify the conditional assignment
-//     $rootFolder = count($segments) >= 2 ? $segments[0] : '';
-//     return Route::get($rootFolder . '/public/livewire/livewire.js', $handle);
-
-// });

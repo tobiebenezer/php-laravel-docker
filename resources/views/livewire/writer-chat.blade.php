@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                        <input type="email" wire:model="authForm.email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                                        <input type="email" wire:model="authForm.email" class="form-control" id="exampleFormControlInput1" placeholder="password">
                                         @error('authForm.email')
                                         <div id="validationServer03Feedback" class="invalid-feedback">
                                             {{ $message }}
@@ -96,6 +96,13 @@
                 </div>
 
                 @auth
+                <button class="btn " type="button" data-bs-toggle="modal" data-bs-target="#CreateAccount">
+                    <span>
+
+                        {{ ucfirst(auth()->user()->email) }}
+                    </span>
+                </button>
+
                 <button wire:click="logout" class="btn " type="button">
                     <span>
                         <i class="fa-solid fa-right-to-bracket mr-2"></i>
