@@ -40,9 +40,7 @@ class WriterChat extends Component
     public function mount()
     {
         $this->toneAdjustmentForm->tone = auth()->user()?->tone ?? 'professional';
-
         $this->toneAdjustmentForm->min_kw_density = auth()?->user()?->min_kw_density ?? 0.02;
-
         $this->toneAdjustmentForm->max_kw_density = auth()?->user()?->max_kw_density ?? 0.05;
     }
 
@@ -63,13 +61,19 @@ class WriterChat extends Component
             $this->toneAdjustmentForm->max_kw_density
         );
 
-        if ($text == "") {
-            session()->flash('error', 'something went wrong please try again later');
+        if (!$text[0]) {
+            session()->flash('error', $text[1]);
             return redirect('/');
         }
 
         // get prompt 
-        $media = $difussionService->generate(
+
+        $media = $openAiService->generateImage( //using dellE-3
+            $this->promptForm->prompt,
+            $this->toneAdjustmentForm->max_kw_density
+        );
+
+        $media = $difussionService->generate( //using difussion api
             $this->promptForm->prompt,
             $this->toneAdjustmentForm->max_kw_density
         );
@@ -80,7 +84,7 @@ class WriterChat extends Component
 
         $message = $openAiService->saveResult(
             $this->promptForm->prompt,
-            $text ?? "",
+            $text[1] ?? "",
             $media ?? [''],
         );
 

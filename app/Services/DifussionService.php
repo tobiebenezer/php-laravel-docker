@@ -32,7 +32,8 @@ class DifussionService
             "Content-Type"=> "application/json",
         ])->withBody($body)->post('https://stablediffusionapi.com/api/v3/text2img');
 
-        if(!$response->successful())
+           
+        if($response->collect()['status']=="error")
         {
             return [];
         }

@@ -240,13 +240,17 @@
             <div class="card-body">
                 <p class="card-text">{{ $chat->response }}</p>
                 <img src="" alt="">
+                @if (count($chat->media_urls) > 0)
+
                 <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap:3rem;">
                     <img height="250px" width="250px" src="{{$chat->media_urls[0]}}" class="rounded " alt="...">
                     <img height="250px" width="250px" src="{{$chat->media_urls[1]}}" class="rounded " alt="...">
                 </div>
+                @endif
             </div>
         </div>
         @empty
+
         <div class="d-flex justify-content-center align-items-center" style="height:87vh; ">
             <p>
             <h3>
@@ -254,7 +258,17 @@
             </h3>
             </p>
         </div>
+
         @endforelse
+        <div wire:loading wire:target="sentPrompt">
+            <div class="d-flex justify-content-center align-items-end" style="height:5vh; ">
+                <p>
+                <h3 class="text-success">
+                    Generating ...
+                </h3>
+                </p>
+            </div>
+        </div>
 
     </div>
     <div class="container py-2" style="height: 5vh;">
